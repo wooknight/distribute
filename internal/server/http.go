@@ -3,8 +3,6 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -42,15 +40,15 @@ type ConsumeResponse struct {
 
 func (h *httpServer) handleProduce(w http.ResponseWriter, r *http.Request) {
 	var req ProduceRequest
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Printf("Error reading body: %v", err)
-		http.Error(w, "can't read body", http.StatusBadRequest)
-		return
-	}
-	err = json.Unmarshal(body, &req)
+	// body, err := ioutil.ReadAll(r.Body)
+	// if err != nil {
+	// 	log.Printf("Error reading body: %v", err)
+	// 	http.Error(w, "can't read body", http.StatusBadRequest)
+	// 	return
+	// }
+	// err = json.Unmarshal(body, &req)
 
-	// err := json.NewDecoder(r.Body).Decode(&req)
+	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
