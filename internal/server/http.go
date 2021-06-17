@@ -49,10 +49,12 @@ func (h *httpServer) handleProduce(w http.ResponseWriter, r *http.Request) {
 	// err = json.Unmarshal(body, &req)
 
 	err := json.NewDecoder(r.Body).Decode(&req)
+	fmt.Println(req)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	fmt.Printf("Record found - %v\n", req)
 	off, err := h.Log.Append(req.Record)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -68,7 +70,6 @@ func (h *httpServer) handleProduce(w http.ResponseWriter, r *http.Request) {
 
 func (h *httpServer) handleConsume(w http.ResponseWriter, r *http.Request) {
 	var req ConsumeRequest
-	fmt.Println(r.Body)
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		fmt.Println(err)
