@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/wooknight/distribute/internal/server"
+	"github.com/wooknight/distribute/Letsgo/internal/server"
 )
 
 func main() {
